@@ -1,7 +1,7 @@
 import mysql.connector
 
 #definir el menu antes que nada para que el resto del programa pueda leerlo
-def conexion(query): 
+def conexion():
         #se establece la conexion con la base de datos
         conexion =  mysql.connector.connect(
             host="localhost",
@@ -13,10 +13,7 @@ def conexion(query):
         #la verdad no se que es un cursor pero parece que es como el "statement.execute(query)" de java
         cursor = conexion.cursor()
         #este ejecuta la consulta
-
-        cursor.execute(query)
-
-
+        cursor.execute("SELECT * FROM Productos")
         #guarda todos los datos que la consulta dio en la variable productos
         Productos = cursor.fetchall()
         #encabezado
@@ -29,48 +26,21 @@ def conexion(query):
         #cierre de conexion
         conexion.close()
 
-def categoriaprint():
-    
-    while True:    
-        print("\n==== Seleccione una Categoria ====")
-        print("1. Bebidas")
-        print("2. Alimentos")
-        print("3. cancelar")
-        
-        categoria = input("Seleccione una opción: ")
-
-        match categoria:
-            case "1":
-                conexion("SELECT * FROM `productos` WHERE `categoria` = 'Bebida'")
-                #SELECT * FROM `productos` WHERE `categoria` = 'Bebida'; 
-            case "2":
-                conexion("SELECT * FROM `productos` WHERE `categoria` = 'Alimento'")
-            case "3":
-                break
-            case _:
-                print("Opción no válida, por favor intente de nuevo")
-            
-
-
 while True:
     
-    print("\n==== Bienvenido a la Cafeteria ====")
+    print("\nBienvenido a la Cafeteria ====")
     print("1. Ver Productos")
-    print("2. productos de categoria especifica")
-    print("3. Salir")
+    print("2. Salir")
 
     opcion = input("Seleccione una opción: ")
 
     match opcion:
         case "1":
-            conexion("SELECT * FROM Productos")
+            conexion()
         case "2":
-              categoriaprint()
-        case "3":
             break
         case _:
             print("Opción no válida, por favor intente de nuevo")
-
 
 print("Gracias por visitar la Cafeteria")
 
