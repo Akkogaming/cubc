@@ -1,5 +1,8 @@
 import mysql.connector
 
+
+print("\033[H\033[J", end="")
+
 #definir el menu antes que nada para que el resto del programa pueda leerlo
 def conexion(query): 
         #se establece la conexion con la base de datos
@@ -41,13 +44,17 @@ def categoriaprint():
 
         match categoria:
             case "1":
+                print("\033[H\033[J", end="")                
                 conexion("SELECT * FROM `productos` WHERE `categoria` = 'Bebida'")
                 #SELECT * FROM `productos` WHERE `categoria` = 'Bebida'; 
             case "2":
+                print("\033[H\033[J", end="")
                 conexion("SELECT * FROM `productos` WHERE `categoria` = 'Alimento'")
             case "3":
+                print("\033[H\033[J", end="")            
                 break
             case _:
+                print("\033[H\033[J", end="")        
                 print("Opción no válida, por favor intente de nuevo")
             
 
@@ -63,12 +70,16 @@ while True:
 
     match opcion:
         case "1":
+            print("\033[H\033[J", end="")
             conexion("SELECT * FROM Productos")
         case "2":
+              print("\033[H\033[J", end="")
               categoriaprint()
         case "3":
+            print("\033[H\033[J", end="")            
             break
         case _:
+            print("\033[H\033[J", end="")
             print("Opción no válida, por favor intente de nuevo")
 
 

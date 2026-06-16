@@ -1,3 +1,4 @@
+-- Active: 1781563931108@@127.0.0.1@3306
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -27,6 +28,10 @@ SET time_zone = "+00:00";
 -- Estructura de tabla para la tabla `Productos`
 --
 
+CREATE DATABASE Cafeteria;
+
+use Cafeteria;
+
 CREATE TABLE `Productos` (
   `id_producto` int(11) NOT NULL,
   `nombre` varchar(100) NOT NULL,
@@ -40,7 +45,7 @@ CREATE TABLE `Productos` (
 --
 
 INSERT INTO `Productos` (`id_producto`, `nombre`, `categoria`, `precio`, `stock`) VALUES
-(1, 'Cafe Americano\r\n', 'Bebida', 75.00, 40),
+(1, 'Cafe Americano', 'Bebida', 75.00, 40),
 (2, 'Croissant', 'Alimento', 70.00, 25),
 (3, 'Capuchino', 'Bebida', 85.00, 30),
 (4, 'Latte', 'Bebida', 80.00, 75),
@@ -70,3 +75,5 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
