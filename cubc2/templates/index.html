@@ -19,24 +19,27 @@
 </head>
 <body>
 
-    <h1>Panel de Control de Entradas</h1>
+    <h1>Menu</h1>
 
     <!-- Bloque que muestra el resultado si se presionó el botón Sumar -->
     {% if mostrar_resultado %}
         <div class="resultado">
-            <strong>¡Suma Procesada!</strong> El valor total es: <strong>{{ total }}</strong> (Revisar consola de Python)
+            <strong>Pago exitoso!</strong> El total de su pedido es: <strong>${{ total }}</strong>
         </div>
     {% endif %}
 
-    <h3>Botones de Entrada:</h3>
+    <h3>Productos:</h3>
     <div class="grid">
         {% for entrada in entradas %}
             <div class="card">
                 <h4>{{ entrada.nombre }}</h4>
-                <p>Valor: ${{ entrada.valor }}</p>
-                <!-- Muestra cuántas veces se ha presionado en tiempo real -->
-                <p>Presionado: <strong>{{ clics[entrada.id] }}</strong> veces</p>
-                <a href="/presionar/{{ entrada.id }}">Presionar</a>
+                <p>${{ entrada.precio }}</p>
+                <!-- Muestra cuántas veces se ha presionado en tiempo real -->{% if clics[entrada.id_producto] > 0 %}
+
+                    <p>Hay <strong>{{ clics[entrada.id_producto] }}</strong> en el carrito</p>
+                    {% endif %}
+
+                <a href="/presionar/{{ entrada.id_producto }}">Pedir</a>
             </div>
         {% endfor %}
     </div>
@@ -45,10 +48,10 @@
 
     <div class="acciones">
         <!-- Botón para Sumar, Imprimir y Limpiar -->
-        <a href="/sumar" class="btn-success">∑ Sumar, Imprimir y Limpiar</a>
+        <a href="/sumar" class="btn-success">Terminar pedido</a>
         
         <!-- Botón para Vaciar la lista sin sumar -->
-        <a href="/vaciar" class="btn-danger">Ø Vaciar Lista (Reiniciar)</a>
+        <a href="/vaciar" class="btn-danger">Vaciar carrito</a>
     </div>
 
 </body>
