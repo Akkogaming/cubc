@@ -24,7 +24,7 @@ def obtener_datos_db(query):
     
     return resultados
 
-Consulta = obtener_datos_db("SELECT * FROM productos")
+Consulta = obtener_datos_db("SELECT * FROM productos WHERE `stock` > 0")
 
 # 1. Tu array (lista) de entradas fijas con sus valores numéricos
 ENTRADAS = Consulta
