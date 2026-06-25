@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <title> Menu </title>
     <style>
-        body { font-family: Arial, Helvetica, sans-serif; margin: 40px; background-color:white; }
+        body { font-family: Arial, Helvetica, sans-serif; margin: 40px; background-color:#7a9a82; }
     
+        .contenedor-fluido {
+            width: 100%;
+            margin-top: 15px;
+            display: block;
+        }
+
         .categorias-container {
             display: flex;
             flex-direction: column;
@@ -36,12 +42,46 @@
             border-radius: 8px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             text-align: center;
+            display: inline-block;
+            width: 220px;
+            margin: 0 10px 15px 0;
+            vertical-align: top;
+            box-sizing: border-box;
+        }
+
+        .img-lateral {
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #ccc;
+        }
+
+        .float-right {
+            float: right;
+            margin-left: 15px
         }
         
+        .float-left {
+            float: left;
+            margin-right: 15px;
+        }
+
         .card-desactivado {
             opacity: 0.6;
             background-color: #e9ecef;
         }
+
+        .producto-img {
+            width: 100%;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            background-color: #f0f0f0;
+        }
+        
 
         button, a {
             display: inline-block;
@@ -59,9 +99,11 @@
         }
         .btn-danger {
             background: #DC3545;
+            border-color: black;
         }
         .btn-danger:hover {
             background-color: #bd2130;
+            border-color: black;
         }
 
         button:disabled {
@@ -69,8 +111,8 @@
             cursor: not-allowed;
         }
 
-        .btn-success { background: #28A745; font-size: 18px; padding: 15px 30px; }
-        .btn-success:hover { background: #218838; }
+        .btn-success { background: #28A745; font-size: 18px; padding: 15px 30px; border-color: black;}
+        .btn-success:hover { background: #218838; border-color: black}
         .acciones { margin-top: 20px; display: flex; gap: 15px; align-items: center; }
         .resultado { background: #D4EDDA; color: #155724; padding: 20px; border-radius: 8px; border: 1px solid #C3E6CB; margin-bottom: 20px; font-size: 20px; }
 
@@ -79,8 +121,7 @@
 </head>
 <body>
 
-    <h1>Casa Jardin</h1>
-
+    <img src="static/CJ.jpg" alt="test" width="250" height="250">
     {% if mostrar_resultado %}
         <div class="resultado">
             <strong>Pago exitoso!</strong> El total de su pedido es: <strong>${{ total }}</strong>
@@ -91,7 +132,14 @@
 
         {% for grupo in entradas|groupby("categoria") %}
             <div class="categoria-fila">
-                <h2>{{ grupo.grouper | capitalize }}</h2> <div class="grid">
+                <h2>{{ grupo.grouper | capitalize }}</h2> 
+                
+                <div class="contenedor-fluido">
+                    
+                    <img src="{{ url_for('static', filename='imagenes/banner_' ~ grupo.grouper ~ '.jpg') }}"
+                         class="img-lateral float-right"
+                         alt="Banner de {{ grupo.grouper }}">
+
                     {% for entrada in grupo.list %}
                         <div class="card {% if entrada.disponibles == 0 %}card-desactivado{% endif %}">
                             <h4>{{entrada.nombre}}</h4>
@@ -108,6 +156,8 @@
                             {% endif %}
                         </div>
                     {% endfor %}
+                    
+                    <div style="clear: both;"></div>
                 </div>
             </div>
         {% endfor %}
@@ -121,5 +171,3 @@
     </div>
 </body>
 </html>
-
-

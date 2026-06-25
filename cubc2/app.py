@@ -54,6 +54,7 @@ def index():
         clics=historial_clics,
         total=ultimo_total,
         mostrar_resultado=mostrar_resultado
+       
     )
 
 @app.route("/presionar/<int:entrada_id>")
@@ -96,6 +97,8 @@ def sumar_y_limpiar():
     print(f"\n--- CÁLCULO FINAL ---")
     print(f"Resultado de la suma: {total}")
     print(f"----------------------\n")
+
+    
     
     # Guarda el resultado para la interfaz web
     ultimo_total = total
