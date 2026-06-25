@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Control de Entradas con Flask</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; background-color: #f4f4f9; }
+        
+        /* Contenedor horizontal para las secciones de categorías */
+        .categorias-container { 
+            display: flex; 
+            flex-direction: row; /* Las alinea horizontalmente una al lado de la otra */
+            gap: 30px; 
+            align-items: flex-start;
+            overflow-x: auto; /* Agrega scroll horizontal si hay demasiadas categorías */
+            padding-bottom: 15px;
+        }
+
+        /* Cada columna de categoría individual */
+        .categoria-columna { 
+            background: #eef2f7; 
+            padding: 20px; 
+            border-radius: 10px; 
+            min-width: 250px; /* Ancho mínimo para que no se aplasten */
+            flex: 1; 
+        }
+
+        /* El grid interno para las tarjetas dentro de esa categoría */
+        .grid { 
+            display: grid; 
+            grid-template-columns: 1fr; /* Una tarjeta por fila dentro de su columna */
+            gap: 15px; 
+            margin-top: 15px; 
+        }
+
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); text-align: center; }
+        
+        /* Estilo visual opcional para denotar que la tarjeta entera está desactivada */
+        .card-desactivada { opacity: 0.6; background-color: #e9ecef; }
+
+        button, a { display: inline-block; padding: 10px 15px; background: #007BFF; color: white; border: none; border-radius: 5px; text-decoration: none; cursor: pointer; font-size: 14px; }
+        button:hover, a:hover { background: #0056b3; }
+        .btn-danger { background: #DC3545; }
+        .btn-danger:hover { background: #bd2130; }
+        
+        /* Estilo para el botón deshabilitado nativo */
+        button:disabled { background: #6c757d; cursor: not-allowed; }
+
+        .btn-success { background: #28A745; font-size: 18px; padding: 15px 30px; }
+        .btn-success:hover { background: #218838; }
+        .acciones { margin-top: 20px; display: flex; gap: 15px; align-items: center; }
+        .resultado { background: #D4EDDA; color: #155724; padding: 20px; border-radius: 8px; border: 1px solid #C3E6CB; margin-bottom: 20px; font-size: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Menu</h1>
+
+    {% if mostrar_resultado %}
+        <div class="resultado">
+            <strong>Pago exitoso!</strong> El total de su pedido es: <strong>${{ total }}</strong>
+        </div>
+    {% endif %}
+
+    <h3>Productos por Categoría:</h3>
+    
+    <div class="categorias-container">
+        
+        {% for grupo in entradas|groupby('categoria') %}
+            <div class="categoria-columna">
+                <h2>{{ grupo.grouper | capitalize }}</h2> <div class="grid">
+                    {% for entrada in grupo.list %}
+                        <div class="card {% if entrada.disponibles == 0 %}card-desactivada{% endif %}">
+                            <h4>{{ entrada.nombre }}</h4>
+                            <p>${{ entrada.precio }}</p>
+                            
+                            <small style="display:block; margin-bottom:10px; color:#555;">
+                                En carrito: {{ clics[entrada.id_producto] }}
+                            </small>
+                            
+                            {% if entrada.disponibles == 0 %}
+                                <button class="btn" disabled>Agotado</button>
+                            {% else %}
+                                <a href="/presionar/{{ entrada.id_producto }}">Pedir</a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        {% endfor %}
+
+    </div>
+
+    <hr>
+
+    <div class="acciones">
+        <a href="/sumar" class="btn-success">Terminar pedido</a>
+        <a href="/vaciar" class="btn-danger">Vaciar carrito</a>
+    </div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, url_for
 import mysql.connector
+from collections import defaultdict
 
 app = Flask(__name__)
 
@@ -24,7 +25,10 @@ def obtener_datos_db(query):
     
     return resultados
 
-Consulta = obtener_datos_db("SELECT * FROM productos WHERE `stock` > 0")
+Consulta = obtener_datos_db("SELECT * FROM `productos`ORDER BY FIELD(categoria, 'Plato principal', 'Complemento', 'Postre', 'Bebida', 'Alcohol'), disponibles DESC, id_producto ASC")
+#Consulta = obtener_datos_db("SELECT * FROM `productos` ORDER BY `disponibles` DESC, `id_producto` ASC")
+#Consulta = obtener_datos_db("SELECT * FROM productos")
+#Consulta = obtener_datos_db("SELECT * FROM productos WHERE `stock` > 0")
 
 # 1. Tu array (lista) de entradas fijas con sus valores numéricos
 ENTRADAS = Consulta
@@ -39,6 +43,10 @@ mostrar_resultado = False
 
 @app.route("/")
 def index():
+
+    productos_agrupados = defaultdict(list)
+    for entrada in ENTRADAS:
+        productos_agrupados[entrada["categoria"]].append(entrada)
     # Calculamos el total acumulado actual solo para mostrarlo en la interfaz si deseas
     return render_template(
         "index.html", 
@@ -54,9 +62,12 @@ def presionar_boton(entrada_id):
     mostrar_resultado = False # Oculta el cartel del total anterior si se vuelve a clickear
     
     # Incrementa el contador del botón específico
-    if entrada_id in historial_clics:
-        historial_clics[entrada_id] += 1
-        
+    producto_seleccionado = next((p for p in ENTRADAS if p["id_producto"] == entrada_id), None)
+    
+    if producto_seleccionado and producto_seleccionado["disponibles"] != 0:
+        if entrada_id in historial_clics:
+            historial_clics[entrada_id] += 1
+
     return redirect(url_for("index"))
 
 @app.route("/vaciar")
