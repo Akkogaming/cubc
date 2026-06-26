@@ -1,0 +1,7 @@
+cant.    descripcion    P.unidad    Total
+1        Brownie Oreo 65.00 $1050.00
+2        Margarita 100.00 $1050.00
+4        Mimosa de Cereza 150.00 $1050.00
+3        Alfonso 13 180.00 $1050.00
+7        Piña Colada 150.00 $1050.00
+        Total $2455.00

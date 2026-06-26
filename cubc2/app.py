@@ -1,6 +1,8 @@
 from flask import Flask, render_template, redirect, url_for
 import mysql.connector
 from collections import defaultdict
+from datetime import datetime
+import os
 
 app = Flask(__name__)
 
@@ -88,17 +90,62 @@ def sumar_y_limpiar():
     global ultimo_total, mostrar_resultado
     
     total = 0
+    lineas_pedido =[]
+
+
+    print(f"\nrecibo")
+
     # Suma el valor numérico de cada fila multiplicado por las veces que se presionó
     for entrada in ENTRADAS:
         cantidad = historial_clics[entrada["id_producto"]]
-        total += entrada["precio"] * cantidad
-    
-    # Imprime en la consola de Python
-    print(f"\n--- CÁLCULO FINAL ---")
-    print(f"Resultado de la suma: {total}")
-    print(f"----------------------\n")
 
+        if cantidad > 0:
+            subtotal = entrada["precio"] * cantidad
+            total += subtotal
+
+            print(f"-{entrada['nombre']} x {cantidad} -> ${subtotal}")
+        
+        
+
+    print(f"{total}")
     
+    carpeta_pedidos = "pedidos"
+    if not os.path.exists(carpeta_pedidos):
+        os.makedirs(carpeta_pedidos)
+
+    numero_pedido = len(os.listdir(carpeta_pedidos)) + 1
+
+    ahora = datetime.now()
+    fecha_str = ahora.strftime("%d-%m-%Y")
+    hora_str = ahora.strftime("%H-%M-%S")
+
+    nombre_archivo = f"[{numero_pedido}, {total}, {fecha_str}, {hora_str}].txt"
+    ruta_completa = os.path.join(carpeta_pedidos, nombre_archivo)
+
+    with open(ruta_completa, "w", encoding="utf-8") as archivo:
+        #archivo.write(f"{numero_pedido}\n")
+        #archivo.write(f"{ahora.strftime("%d/%m/%Y")}, {ahora.strftime("%H-%M-%S")}")
+
+
+        #archivo.write(f"\nrecibo")
+        archivo.write(f"cant.    descripcion    P.unidad    Total\n")
+    # Suma el valor numérico de cada fila multiplicado por las veces que se presionó
+        for entrada in ENTRADAS:
+            cantidad = historial_clics[entrada["id_producto"]]
+            
+            if cantidad > 0:
+               
+
+                #archivo.write(f"-{entrada['nombre']} x {cantidad} -> ${subtotal}")
+                
+                archivo.write(f"{cantidad}        {entrada['nombre']} {entrada['precio']} ${subtotal}\n")
+
+
+
+        for linea in lineas_pedido:
+            archivo.write(linea + "\n")
+
+        archivo.write(f"        Total ${total}\n")
     
     # Guarda el resultado para la interfaz web
     ultimo_total = total

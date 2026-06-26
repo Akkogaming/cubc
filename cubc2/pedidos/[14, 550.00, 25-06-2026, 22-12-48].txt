@@ -1,0 +1,6 @@
+cant.    descripcion    P.unidad    Total
+1      Mini Sandwich precio $180.00
+1      Bruschettas precio $120.00
+1      Margarita precio $100.00
+1      Mimosa de Cereza precio $150.00
+        Total 1100.00

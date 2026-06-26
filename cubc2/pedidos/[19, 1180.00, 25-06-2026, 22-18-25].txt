@@ -1,0 +1,6 @@
+cant.    descripcion    P.unidad    Total
+1        Margarita 100.00 $450.00
+3        Mimosa de Cereza 150.00 $450.00
+1        Alfonso 13 180.00 $450.00
+3        Piña Colada 150.00 $450.00
+        Total 1180.00

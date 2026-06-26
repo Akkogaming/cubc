@@ -1,0 +1,5 @@
+cant.    descripcion    P.unidad    Total
+2 Margarita precio $200.00
+3 Mimosa de Cereza precio $450.00
+2 Alfonso 13 precio $360.00
+        Total 2020.00

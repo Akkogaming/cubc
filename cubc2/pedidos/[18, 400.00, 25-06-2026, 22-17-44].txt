@@ -1,0 +1,27 @@
+cant.    descripcion    P.unidad    Total
+0        Mini Sandwich 180.00 $300.00
+0        NutriSushi 150.00 $300.00
+0        Bruschettas 120.00 $300.00
+0        Rol Lotus 100.00 $300.00
+0        Rol Frutos Rojos 100.00 $300.00
+0        Cupcake Lotus 50.00 $300.00
+0        Cupcake Oreo 50.00 $300.00
+0        Cupcake Fresa 50.00 $300.00
+0        Brownie Oreo 65.00 $300.00
+0        Brownie Kinder Delice 65.00 $300.00
+0        Croissant 70.00 $300.00
+0        Mufin 45.00 $300.00
+0        Rol Oreo 100.00 $300.00
+0        Brownie Nuez 65.00 $300.00
+0        Latte 80.00 $300.00
+0        Cafe Americano 75.00 $300.00
+0        Capuchino 85.00 $300.00
+1        Margarita 100.00 $300.00
+2        Mimosa de Cereza 150.00 $300.00
+0        Alfonso 13 180.00 $300.00
+0        Piña Colada 150.00 $300.00
+0        Malibu Bay Breeze 150.00 $300.00
+0        Carajillo 200.00 $300.00
+0        Paloma 150.00 $300.00
+0        Cuba Libre 100.00 $300.00
+        Total 400.00

@@ -1,0 +1,4 @@
+cant.    descripcion    P.unidad    Total
+1        Margarita 100.00 $100.00
+1        Mimosa de Cereza 150.00 $150.00
+        Total 500.00

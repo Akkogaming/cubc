@@ -1,0 +1,5 @@
+cant.    descripcion    P.unidad    Total
+1          Margarita 100.00 $100.00
+2          Mimosa de Cereza 150.00 $300.00
+1          Alfonso 13 180.00 $180.00
+        Total 1160.00
